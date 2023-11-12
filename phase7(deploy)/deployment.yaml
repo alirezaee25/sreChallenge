@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ipchecker-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ipchecker
+  template:
+    metadata:
+      labels:
+        app: ipchecker
+    spec:
+      containers:
+      - name: ipchecker
+        image: alirezaieei/apichecker:1.0
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DB_HOST
+          value: postgresdb
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_NAME
+          value: testDB
+        - name: DB_USER
+          value: postgres
+        - name: DB_PASSWORD
+          value: postgres
